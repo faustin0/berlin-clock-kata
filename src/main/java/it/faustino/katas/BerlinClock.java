@@ -1,12 +1,14 @@
 package it.faustino.katas;
 
 import java.time.LocalTime;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class BerlinClock {
 
     static final String OFF_LIGHT = "O";
+    static final String ON_LIGHT = "Y";
 
     static final String ONE_MINUTE_ROW = "YYYY";
     static final String FIVE_MINUTE_ROW = "YYRYYRYYRYY";
@@ -44,6 +46,21 @@ public class BerlinClock {
     private String getOffLights(String lights, int litLamps) {
         return Stream.generate(() -> OFF_LIGHT)
                 .limit(lights.length() - litLamps)
+                .collect(Collectors.joining());
+    }
+
+    public String computeSecondLamp(LocalTime time) {
+        return time.getSecond() % 2 == 0 ? ON_LIGHT : OFF_LIGHT;
+    }
+
+    public String compute(LocalTime time) {
+        return Stream.<Function<LocalTime, String>>of(
+                this::computeSecondLamp,
+                this::computeFiveHours,
+                this::computeSingleHour,
+                this::computeFiveMinutes,
+                this::computeSingleMinute
+        ).map(f -> f.apply(time))
                 .collect(Collectors.joining());
     }
 }

@@ -14,7 +14,6 @@ class BerlinClockTest {
     @BeforeEach
     void setUp() {
         sut = new BerlinClock();
-
     }
 
     @ParameterizedTest
@@ -71,13 +70,28 @@ class BerlinClockTest {
     }
 
 
+    @ParameterizedTest
+    @CsvSource({
+            "00:00:00, Y",
+            "23:59:59, O"
+    })
+    void secondsLamp(LocalTime time, String expected) {
+        String actual = sut.computeSecondLamp(time);
+        assertEquals(expected, actual);
+    }
 
 
-
-
-
-
-
+    @ParameterizedTest
+    @CsvSource({
+            "00:00:00, YOOOOOOOOOOOOOOOOOOOOOOO",
+            "23:59:59, ORRRRRRROYYRYYRYYRYYYYYY",
+            "16:50:06, YRRROROOOYYRYYRYYRYOOOOO",
+            "11:37:01, ORROOROOOYYRYYRYOOOOYYOO"
+    })
+    void completeBerlinClock(LocalTime time, String expected) {
+        String actual = sut.compute(time);
+        assertEquals(expected, actual);
+    }
 
 
 }
