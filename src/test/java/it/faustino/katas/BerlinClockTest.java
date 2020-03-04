@@ -25,8 +25,8 @@ class BerlinClockTest {
             "12:34:00, YYYY",
             "12:35:00, OOOO",
     })
-    void singleMinuteRow(String input, String expected) {
-        String actual = sut.computeSingleMinute(input);
+    void singleMinuteRow(LocalTime time, String expected) {
+        String actual = sut.computeSingleMinute(time);
         assertEquals(expected, actual);
     }
 
@@ -38,8 +38,8 @@ class BerlinClockTest {
             "12:23:00, YYRYOOOOOOO",
             "12:35:00, YYRYYRYOOOO",
     })
-    void fiveMinuteRow(String input, String expected) {
-        String actual = sut.computeFiveMinutes(input);
+    void fiveMinuteRow(LocalTime time, String expected) {
+        String actual = sut.computeFiveMinutes(time);
         assertEquals(expected, actual);
     }
 
@@ -51,8 +51,8 @@ class BerlinClockTest {
             "08:23:00, RRRO",
             "14:35:00, RRRR",
     })
-    void singleHoursRow(String input, String expected) {
-        String actual = sut.computeSingleHour(input);
+    void singleHoursRow(LocalTime time, String expected) {
+        String actual = sut.computeSingleHour(time);
         assertEquals(expected, actual);
     }
 
