@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.time.LocalTime;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BerlinClockTest {
@@ -51,6 +53,20 @@ class BerlinClockTest {
     })
     void singleHoursRow(String input, String expected) {
         String actual = sut.computeSingleHour(input);
+        assertEquals(expected, actual);
+    }
+
+
+    @ParameterizedTest
+    @CsvSource({
+            "00:00:00, OOOO",
+            "23:59:59, RRRR",
+            "02:04:00, OOOO",
+            "08:23:00, ROOO",
+            "16:35:00, RRRO",
+    })
+    void fiveHoursRow(LocalTime time, String expected) {
+        String actual = sut.computeFiveHours(time);
         assertEquals(expected, actual);
     }
 

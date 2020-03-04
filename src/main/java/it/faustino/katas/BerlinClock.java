@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 public class BerlinClock {
 
+    static final String OFF_LIGHT = "O";
 
     static final String ONE_MINUTE_ROW = "YYYY";
     static final String FIVE_MINUTE_ROW = "YYRYYRYYRYY";
@@ -30,6 +31,11 @@ public class BerlinClock {
         return getOnLights(SINGLE_HOUR_ROW, litLamps) + getOffLights(SINGLE_HOUR_ROW, litLamps);
     }
 
+    public String computeFiveHours(LocalTime time) {
+        int litLamps = time.getHour() / 5;
+        return getOnLights(FIVE_HOUR_ROW, litLamps) + getOffLights(FIVE_HOUR_ROW, litLamps);
+    }
+
     private String getOnLights(String lights, int litLamps) {
         return lights.chars()
                 .mapToObj(p -> (char) p)
@@ -39,7 +45,7 @@ public class BerlinClock {
     }
 
     private String getOffLights(String lights, int litLamps) {
-        return Stream.generate(() -> "O")
+        return Stream.generate(() -> OFF_LIGHT)
                 .limit(lights.length() - litLamps)
                 .collect(Collectors.joining());
     }
