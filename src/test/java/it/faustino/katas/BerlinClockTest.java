@@ -1,6 +1,7 @@
 package it.faustino.katas;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -91,6 +92,19 @@ class BerlinClockTest {
     void completeBerlinClock(LocalTime time, String expected) {
         String actual = sut.compute(time);
         assertEquals(expected, actual);
+    }
+
+    @Disabled("impossbbru")
+    @ParameterizedTest
+    @CsvSource({
+            "YOOOOOOOOOOOOOOOOOOOOOOO, 00:00:00",
+            "ORRRRRRROYYRYYRYYRYYYYYY, 23:59:59",
+            "YRRROROOOYYRYYRYYRYOOOOO, 16:50:06",
+            "ORROOROOOYYRYYRYOOOOYYOO, 11:37:01"
+    })
+    void completeBerlinClockToDigital(String berlin, LocalTime expected) {
+//        LocalTime actual = sut.compute(berlin);
+//        assertEquals(expected, actual);
     }
 
 
